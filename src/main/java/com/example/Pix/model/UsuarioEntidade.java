@@ -1,29 +1,31 @@
 package com.example.Pix.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Getter
 @Setter
-@Data
 @Entity
-public class Usuario {
+public class UsuarioEntidade {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(unique = true)
+    private String chavePix;
+
     private String nome;
     private String cpf;
     private String email;
-    private double saldo;
+    private BigDecimal saldo;
+
+
 
 
 

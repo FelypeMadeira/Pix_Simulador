@@ -1,14 +1,13 @@
 package com.example.Pix.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -25,8 +24,11 @@ public class TransacaoEntidade {
 
     private String chaveOrigem;
     private String chaveDestino;
-    private double valor;
-    private LocalDateTime dataHora = LocalDateTime.now();
+    private BigDecimal valor;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime dataHora ;
 
     private String status;// PROCESSANDO, APROVADO, FALHA
 

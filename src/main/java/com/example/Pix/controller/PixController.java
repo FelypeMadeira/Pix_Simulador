@@ -1,8 +1,11 @@
 package com.example.Pix.controller;
 
 
+import com.example.Pix.dto.TransacaoDTORequisicao;
+import com.example.Pix.dto.TransacaoDTOResposta;
 import com.example.Pix.model.TransacaoEntidade;
-import com.example.Pix.repository.TransacaoRepository;
+import com.example.Pix.service.PixService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,19 +13,19 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/pix")
 public class PixController {
-    private final TransacaoRepository repository;
+    private final PixService pixService;
 
-    public PixController(TransacaoRepository repository){
-        this.repository = repository;
+    public PixController(PixService pixService){
+        this.pixService = pixService;
 
     }
     @PostMapping("/enviar")
-    public TransacaoEntidade enviarPix(@RequestBody TransacaoEntidade t) {
-        return repository.save(t);
+    public TransacaoDTOResposta enviarPix(@RequestBody @Valid TransacaoDTORequisicao dtoRequisicao) {
+        return pixService.processarPix(dtoRequisicao);
     }
 
     @GetMapping("/listar")
-    public List<TransacaoEntidade> listar(){
-        return repository.findAll();
+    public List<TransacaoDTOResposta> listar(){
+       return pixService.listarTransacoes();
     }
 }
